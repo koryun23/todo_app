@@ -1,0 +1,230 @@
+<LoginScreen>:
+    GridLayout:
+        cols:1
+        GridLayout:
+            cols:1
+            Label:
+                text: 'Sign in'
+            TextInput:
+                id: username
+                hint_text: 'Username'
+            TextInput:
+                id: password
+                password: True
+                hint_text: 'Password'
+            Button:
+                text: "Sign in"
+                on_press: root.do_everything(root.ids.username.text, root.ids.password.text)
+        GridLayout:
+            cols:2
+            Button:
+                text:'Forgot Password'
+                on_press: root.go_to_forgot_password_screen()
+            Button:
+                text: 'Sign up'
+                on_press: root.go_to_signup_screen()
+
+<LoginSuccess>:
+    GridLayout:
+        cols: 1
+        RelativeLayout:
+            size_hint:0.1,0.1
+            GridLayout:
+                cols:2
+                Button:
+                    text:"Log out"
+                    on_press: root.logout()
+        GridLayout:
+            cols:1
+            Label:
+                text: "Today's tasks:"
+            ScrollView:
+                GridLayout:
+                    text_size: self.width, None
+                    size_hint_y: None
+                    height: 800
+                    cols:1
+                    spacing: 20,20
+                    id:tasks
+            RelativeLayout:
+                size_hint: 0.1,0.1
+                GridLayout:
+                    cols:1
+                    Button:
+                        text:"Add tasks"
+                        on_press: root.do_everything()
+<AddPage>:
+    GridLayout:
+        cols:1
+
+        GridLayout:
+            cols:2
+            size_hint: 0.2,0.2
+            RelativeLayout:
+                Button:
+                    text:"Log out"
+                    on_press: root.logout()
+                    size_hint:0.2,0.2
+                    pos_hint:{"center_x":0.33,"center_y":0.8}
+                Button:
+                    text:"Home"
+                    on_press:root.go_home()
+                    size_hint:0.2,0.2
+                    pos_hint:{"center_x":0.93, "center_y": 0.8}
+        GridLayout:
+            cols: 1
+            Label:
+                text: "Adding Tasks"
+        GridLayout:
+            cols:2
+            Label:
+                text: "Task name"
+            TextInput:
+                id: task
+            Label:
+                text: "Date"
+            GridLayout:
+                cols:4
+                Label:
+                    text: "Day"
+                Button:
+                    text:"-"
+                    on_press: root.day_minus()
+                TextInput:
+                    text: ""
+                    id: day
+                Button:
+                    text:"+"
+                    on_press: root.day_plus()
+                Label:
+                    text: "Month"
+                Button:
+                    text:"-"
+                    on_press: root.month_minus()
+                TextInput:
+                    id: month
+                    text: ""
+                Button:
+                    text:"+"
+                    on_press: root.month_plus()
+                Label:
+                    text: "Year"
+                Button:
+                    text:"-"
+                    on_press: root.year_minus()
+                TextInput:
+                    id: year
+                    text: ""
+                Button:
+                    text:"+"
+                    on_press: root.year_plus()
+                    
+            Label:
+                text: "Time"
+            GridLayout:
+                cols:3
+                Button:
+                    text:"-"
+                    on_press: root.hour_minus()
+                TextInput:
+                    id: hour
+                    text: "00"
+                Button:
+                    text:"+"
+                    on_press: root.hour_plus()
+                Button:
+                    text:"-"
+                    on_press: root.minute_minus()
+                TextInput:
+                    id: minute
+                    text: "00"
+                Button:
+                    text:"+"
+                    on_press: root.minute_plus()
+        RelativeLayout:
+            size_hint: 0.05,0.05
+            GridLayout:
+                cols:1
+                Button:
+                    text: "Submit"
+                    on_press: root.add_task()
+                    size_hint:0.2,0.2
+                    pos_hint: {"center_x":0.5, "center_y":0.2}
+
+<SignUpScreen>:
+    GridLayout:
+        cols:1
+        Label:
+            text: "Sign up"
+        TextInput:
+            id: username
+            hint_text: 'Username'
+        TextInput:
+            id: email
+            hint_text: "Email"
+        TextInput:
+            id: password
+            hint_text: 'Password'
+            password: True
+        TextInput:
+            id: retyped_password
+            hint_text: 'Retype Password'
+            password: True
+        Button:
+            text: "Sign up"
+            on_press: root.add_user(root.ids.username.text, root.ids.email.text,root.ids.password.text, root.ids.retyped_password.text)
+<SignUpSuccess>:
+    GridLayout:
+        cols:1
+        Label:
+            text: "Signed up successfully"
+        Button:
+            text: 'go to login page'
+            on_press: root.switch_to_login_page()
+
+
+        
+<ForgotPasswordScreen>:
+    GridLayout:
+        cols:1
+        Label:
+            text: "Change Password"
+        TextInput:
+            id: username
+            hint_text: "Username"
+        TextInput:
+            id: password
+            hint_text: "Password"
+            password: True
+        TextInput:
+            id: retyped_password
+            hint_text: "Retype Password"
+            password: True
+        Button:
+            text: "Submit"
+            on_press: root.change_password(root.ids.username.text, root.ids.password.text, root.ids.retyped_password.text)
+<PasswordChangedSuccess>:
+    GridLayout:
+        cols:1
+        Label:
+            text: "password changed successfully!"
+        Button:
+            text: "go to login page"
+            on_press: root.go_to_login_page()
+        
+
+<RootWidget>:
+    LoginScreen:
+        name: 'login_screen'
+    LoginSuccess:
+        name: 'login_success'
+    SignUpScreen:
+        name: 'sign_up_screen'
+    SignUpSuccess:
+        name: 'sign_up_success'
+    ForgotPasswordScreen:
+        name: 'forgot_password_screen'
+    PasswordChangedSuccess:
+        name: 'password_changed_success'
+    AddPage:
+        name: 'add_page'
