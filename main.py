@@ -45,12 +45,10 @@ class LoginScreen(Screen):
             task_name = Label(text=task[2])
             task_time = Label(text=task[3]+":"+task[4])
             delete_task = Button(text="Delete", on_press = partial(self.remove,layout, task))
-            update_task = Button(text="Update", )
             layout.add_widget(task_name)
             layout.add_widget(delete_task)
             
             layout.add_widget(task_time)
-            layout.add_widget(update_task)
             self.manager.get_screen("login_success").ids.tasks.add_widget(layout)
         
     def remove(self, layout,task, delete_task):
@@ -58,8 +56,6 @@ class LoginScreen(Screen):
         tasks = Tasks()
         tasks.delete_task(database.logged_in_id, task[2], task[3], task[4], task[5], task[6], task[7])
         #return tasks.todays_tasks(database.logged_in_id, day, month, year)  
-    def go_to_updatePage(self, update_task):
-        self.manager.current = "update_page"
     # def get_username(self, uname):
         #some stuff here that changes the text of a widget with id:greeting(see in the LoginSuccess rule in the .kv file)
     
@@ -82,13 +78,16 @@ class LoginSuccess(Screen, GridLayout):
         self.manager.current = "login_success"
     def remove_all(self, user_id):
         pass
-    def do_everything(self):
-        self.go_to_addPage()
+    def go_to_datePage(self):
+        self.manager.current="date_page"
         self.current_day()
         self.current_month()
         self.current_year()
     def go_to_addPage(self):
         self.manager.current = "add_page"
+        self.current_day()
+        self.current_month()
+        self.current_year()
     def remove_all_tasks(self):
         tasks = Tasks()
         tasks.delete_all_tasks(database.logged_in_id)
@@ -99,14 +98,92 @@ class LoginSuccess(Screen, GridLayout):
         current_day = today.strftime("%d/%m/%Y")[:2]
         
         self.manager.get_screen("add_page").ids.day.text = current_day
+        self.manager.get_screen("date_page").ids.day.text = current_day
     def current_month(self):
         today = date.today()
         current_month = today.strftime("%d/%m/%Y")[3:5]
         self.manager.get_screen("add_page").ids.month.text = current_month
+        self.manager.get_screen("date_page").ids.month.text = current_month
     def current_year(self):
         today = date.today()
         current_year = today.strftime("%d/%m/%Y")[6:]
         self.manager.get_screen("add_page").ids.year.text = current_year
+        self.manager.get_screen("date_page").ids.year.text = current_year
+class DatePage(Screen):
+    def go_home(self):
+        self.manager.current = "login_success"
+    def logout(self):
+        self.manager.current="login_screen"
+    def day_minus(self):
+        today = date.today()
+        month_last_day = {"01":"31","02":"28","03":"31","04":"30","05":"31","06":"30","07":"31","08":"31","09":"30", "10":"31", "11":"30","12":"31"}
+        current_day = today.strftime("%d/%m/%Y")[:2]
+        current_month = today.strftime("%d/%m/%Y")[3:5]
+        current_year = today.strftime("%d/%m/%Y")[6:]
+        # self.manager.get_screen("add_page").ids.day.text = current_day
+        #[:2], [3:5], [6:]
+        day_input = self.ids.day.text
+        month_input = self.ids.month.text
+        year_input = self.ids.year.text
+        if day_input == "01":
+            day_input = month_last_day[month_input]
+        else:
+            if int(day_input) > 10:
+                day_input = str(int(day_input)-1)
+            else:
+                day_input = "0"+str(int(day_input)-1)
+        self.ids.day.text = day_input
+    def day_plus(self):
+        today = date.today()
+        month_last_day = {"01":"31","02":"28","03":"31","04":"30","05":"31","06":"30","07":"31","08":"31","09":"30", "10":"31", "11":"30","12":"31"}
+        current_day = today.strftime("%d/%m/%Y")[:2]
+        current_month = today.strftime("%d/%m/%Y")[3:5]
+        current_year = today.strftime("%d/%m/%Y")[6:]
+        day_input = self.ids.day.text
+        month_input = self.ids.month.text
+        year_input = self.ids.year.text
+        if day_input == month_last_day[self.ids.month.text]:
+            day_input = "01"
+        else:
+            #if int(day_input) >= int(current_day) and int(month_input)>= int(current_month) and int(year_input)>= int(current_year):
+            if int(day_input) < 9:
+                day_input = "0"+str(int(day_input)+1)
+            else:
+                day_input = str(int(day_input)+1)
+        self.ids.day.text = day_input
+
+    def month_plus(self):
+        today = date.today()
+
+        month_input = self.ids.month.text
+        if int(month_input) == 12:
+            month_input = "01"
+        else:
+            if int(month_input) < 9:
+                month_input = "0"+str(int(month_input)+1)
+            else:
+                month_input = str(int(month_input)+1)
+        self.ids.month.text = month_input
+    def month_minus(self):
+        today = date.today()
+        current_day = today.strftime("%d/%m/%Y")[:2]
+        current_month = today.strftime("%d/%m/%Y")[3:5]
+        current_year = today.strftime("%d/%m/%Y")[6:]
+        day_input = self.ids.day.text
+        month_input = self.ids.month.text
+        year_input = self.ids.year.text
+        if month_input == "01":
+            month_input = "12"
+        else:
+            if int(month_input)>10:
+                month_input = str(int(month_input)-1)
+            else:
+                month_input = "0"+str(int(month_input)-1)
+        self.ids.month.text = month_input
+    def year_plus(self):
+        self.ids.year.text = str(int(self.ids.year.text)+1)
+    def year_minus(self):
+        self.ids.year.text = str(int(self.ids.year.text)-1)
 class AddPage(Screen):
     def logout(self):
         self.manager.current = "login_screen"
@@ -143,14 +220,11 @@ class AddPage(Screen):
             task_name = Label(text=task[2])
             task_time = Label(text=task[3]+":"+task[4])
             delete_task = Button(text="Delete", on_press = partial(self.remove,layout, task))
-            update_task = Button(text="Update")
             layout.add_widget(task_name)
             layout.add_widget(delete_task)
             
             layout.add_widget(task_time)
-            layout.add_widget(update_task)
             self.manager.get_screen("login_success").ids.tasks.add_widget(layout)
-        
     def remove(self, layout,task, delete_task):
         self.manager.get_screen("login_success").ids.tasks.remove_widget(layout)
         tasks = Tasks()

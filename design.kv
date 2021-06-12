@@ -46,13 +46,96 @@
                     cols:1
                     spacing: 20,20
                     id:tasks
+            # RelativeLayout:
+            #size_hint: 0.1,0.1
+            GridLayout:
+                cols:1
+                Button:
+                    size_hint:None,None
+                    size:100,44
+                    text:"Add tasks"
+                    on_press: root.go_to_addPage()
+                Button:
+                    size_hint:None,None
+                    size:100,44
+                    text:"Go to date"
+                    on_press: root.go_to_datePage()
+
+
+<DatePage>:
+    GridLayout:
+        cols:1
+
+        GridLayout:
+            cols:2
+            size_hint: 0.2,0.2
             RelativeLayout:
-                size_hint: 0.1,0.1
-                GridLayout:
-                    cols:1
-                    Button:
-                        text:"Add tasks"
-                        on_press: root.do_everything()
+                Button:
+                    text:"Log out"
+                    on_press: root.logout()
+                    size_hint:0.2,0.2
+                    pos_hint:{"center_x":0.33,"center_y":0.8}
+                Button:
+                    text:"Home"
+                    on_press:root.go_home()
+                    size_hint:0.2,0.2
+                    pos_hint:{"center_x":0.93, "center_y": 0.8}
+        GridLayout:
+            cols: 1
+            Label:
+                text: "Go to date"
+        GridLayout:
+            cols:2
+            Label:
+                text: "Date"
+            GridLayout:
+                cols:4
+                Label:
+                    text: "Day"
+                Button:
+                    text:"-"
+                    on_press: root.day_minus()
+                TextInput:
+                    text: ""
+                    id: day
+                Button:
+                    text:"+"
+                    on_press: root.day_plus()
+                Label:
+                    text: "Month"
+                Button:
+                    text:"-"
+                    on_press: root.month_minus()
+                TextInput:
+                    id: month
+                    text: ""
+                Button:
+                    text:"+"
+                    on_press: root.month_plus()
+                Label:
+                    text: "Year"
+                Button:
+                    text:"-"
+                    on_press: root.year_minus()
+                TextInput:
+                    id: year
+                    text: ""
+                Button:
+                    text:"+"
+                    on_press: root.year_plus()
+                    
+        
+        RelativeLayout:
+            size_hint: 0.05,0.05
+            GridLayout:
+                cols:1
+                Button:
+                    text: "Submit"
+                    on_press: root.go_to_date()
+                    size_hint:0.2,0.2
+                    pos_hint: {"center_x":0.5, "center_y":0.2}
+
+
 <AddPage>:
     GridLayout:
         cols:1
@@ -228,3 +311,6 @@
         name: 'password_changed_success'
     AddPage:
         name: 'add_page'
+    DatePage:
+        name: 'date_page'
+    
