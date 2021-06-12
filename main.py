@@ -184,6 +184,32 @@ class DatePage(Screen):
         self.ids.year.text = str(int(self.ids.year.text)+1)
     def year_minus(self):
         self.ids.year.text = str(int(self.ids.year.text)-1)
+    def go_to_date(self):
+        tasks = Tasks()
+        today = date.today()
+        # day = today.strftime("%d/%m/%Y")[:2]
+        # month = today.strftime("%d/%m/%Y")[3:5]
+        # year = today.strftime("%d/%m/%Y")[6:]
+        day = self.ids.day.text
+        month = self.ids.month.text
+        year = self.ids.year.text
+        self.manager.get_screen("login_success").ids.tasks.clear_widgets()
+        all_tasks = tasks.todays_tasks(database.logged_in_id, day, month, year)  
+        for task in all_tasks:
+            layout = GridLayout(cols=2)
+            task_name = Label(text=task[2])
+            task_time = Label(text=task[3]+":"+task[4])
+            delete_task = Button(text="Delete", on_press = partial(self.remove,layout, task))
+            layout.add_widget(task_name)
+            layout.add_widget(delete_task)
+            
+            layout.add_widget(task_time)
+            self.manager.get_screen("login_success").ids.tasks.add_widget(layout)
+        self.manager.current = "login_success"
+    def remove(self, layout,task, delete_task):
+        self.manager.get_screen("login_success").ids.tasks.remove_widget(layout)
+        tasks = Tasks()
+        tasks.delete_task(database.logged_in_id, task[2], task[3], task[4], task[5], task[6], task[7])
 class AddPage(Screen):
     def logout(self):
         self.manager.current = "login_screen"
