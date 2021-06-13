@@ -253,8 +253,12 @@
 <SignUpScreen>:
     GridLayout:
         cols:1
+        padding:15,15
+        spacing:20,20
         Label:
             text: "Sign up"
+            color: 22/255,57/255,109/255
+            font_size:32
         TextInput:
             id: username
             hint_text: 'Username'
@@ -269,9 +273,13 @@
             id: retyped_password
             hint_text: 'Retype Password'
             password: True
-        Button:
-            text: "Sign up"
-            on_press: root.add_user(root.ids.username.text, root.ids.email.text,root.ids.password.text, root.ids.retyped_password.text)
+        RelativeLayout:
+            Button:
+                text: "Sign up"
+                on_press: root.add_user(root.ids.username.text, root.ids.email.text,root.ids.password.text, root.ids.retyped_password.text)
+                background_color: 22/255,57/255,109/255
+                size_hint:0.4,0.6
+                pos_hint:{'center_x':0.5, 'center_y':0.6}
 <SignUpSuccess>:
     GridLayout:
         cols:1
@@ -286,8 +294,13 @@
 <ForgotPasswordScreen>:
     GridLayout:
         cols:1
+        padding:15,15
+        spacing:20,20
         Label:
             text: "Change Password"
+            color: 22/255,57/255,109/255
+            font_size:32
+
         TextInput:
             id: username
             hint_text: "Username"
@@ -299,9 +312,13 @@
             id: retyped_password
             hint_text: "Retype Password"
             password: True
-        Button:
-            text: "Submit"
-            on_press: root.change_password(root.ids.username.text, root.ids.password.text, root.ids.retyped_password.text)
+        RelativeLayout:
+            Button:
+                text: "Submit"
+                on_press: root.change_password(root.ids.username.text, root.ids.password.text, root.ids.retyped_password.text)
+                background_color: 22/255,57/255,109/255
+                size_hint:0.4,0.6
+                pos_hint:{'center_x':0.5, 'center_y':0.6}
 <PasswordChangedSuccess>:
     GridLayout:
         cols:1
