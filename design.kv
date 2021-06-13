@@ -3,8 +3,13 @@
         cols:1
         GridLayout:
             cols:1
+            padding:15,15
+            spacing:20,20
             Label:
                 text: 'Sign in'
+                font_size: 32
+                color: 22/255,57/255,109/255
+                
             TextInput:
                 id: username
                 hint_text: 'Username'
@@ -12,15 +17,26 @@
                 id: password
                 password: True
                 hint_text: 'Password'
-            Button:
-                text: "Sign in"
-                on_press: root.do_everything(root.ids.username.text, root.ids.password.text)
+            RelativeLayout:
+                Button:
+                    text: "Sign in"
+                    on_press: root.do_everything(root.ids.username.text, root.ids.password.text)
+                    size_hint:0.3,0.5
+                    pos_hint:{'center_x':0.5, 'center_y':0.6}
+                    background_color: 22/255,57/255,109/255
         GridLayout:
             cols:2
+            size_hint:0.2,0.2
+            padding:10,10
+            spacing:10,0
             Button:
                 text:'Forgot Password'
                 on_press: root.go_to_forgot_password_screen()
+                background_color:1,1,1,0
+                color: 22/255,57/255,109/255
             Button:
+                background_color:1,1,1,0
+                color: 22/255,57/255,109/255
                 text: 'Sign up'
                 on_press: root.go_to_signup_screen()
 
@@ -297,6 +313,12 @@
         
 
 <RootWidget>:
+    canvas.before:
+        Color:
+            rgba:152/255,172/255,222/255,1
+        Rectangle:
+            pos:self.pos
+            size:self.size
     LoginScreen:
         name: 'login_screen'
     LoginSuccess:

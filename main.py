@@ -202,7 +202,6 @@ class DatePage(Screen):
             delete_task = Button(text="Delete", on_press = partial(self.remove,layout, task))
             layout.add_widget(task_name)
             layout.add_widget(delete_task)
-            
             layout.add_widget(task_time)
             self.manager.get_screen("login_success").ids.tasks.add_widget(layout)
         self.manager.current = "login_success"
@@ -358,6 +357,7 @@ class AddPage(Screen):
         else:
             if int(month_input)>10:
                 month_input = str(int(month_input)-1)
+                
             else:
                 month_input = "0"+str(int(month_input)-1)
         self.ids.month.text = month_input
