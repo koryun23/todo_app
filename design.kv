@@ -9,14 +9,39 @@
                 text: 'Sign in'
                 font_size: 32
                 color: 22/255,57/255,109/255
-                
-            TextInput:
-                id: username
-                hint_text: 'Username'
-            TextInput:
-                id: password
-                password: True
-                hint_text: 'Password'
+            RelativeLayout:
+                TextInput:
+                    canvas.after:
+                        Color: 
+                            rgba: 22/255,57/255,109/255,1
+                        Rectangle:
+                            pos:self.pos
+                            size:(self.width, 1)
+                    id: username
+                    hint_text: 'Username'
+                    size_hint: None, None
+                    height:30
+                    width: 200
+                    background_color: 0,0,0,0  
+                    foreground_color: 22/255,57/255,109/255,1
+                    pos_hint:{'center_x':0.5, 'center_y':0.4}
+            RelativeLayout:
+                TextInput:
+                    canvas.after:
+                        Color: 
+                            rgba: 22/255,57/255,109/255,1
+                        Rectangle:
+                            pos:self.pos
+                            size:(self.width, 1)
+                    id: password
+                    password: True
+                    hint_text: 'Password'
+                    size_hint:None, None
+                    height:30
+                    width:200
+                    pos_hint:{'center_x':0.5, 'center_y':0.5}
+                    background_color: 0,0,0,0  
+                    foreground_color: 22/255,57/255,109/255,1
             RelativeLayout:
                 Button:
                     text: "Sign in"

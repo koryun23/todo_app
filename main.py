@@ -10,6 +10,7 @@ from datetime import datetime
 from database import Database
 from database import Tasks
 from functools import partial
+from kivy.graphics import Color, Rectangle
 import sqlite3
 Builder.load_file('design.kv')
 
@@ -21,6 +22,23 @@ class LoginScreen(Screen):
     def login(self, uname, pword):
         if database.user_exists(uname, pword):
             self.manager.current = "login_success"
+            self.ids.username.canvas.after.clear()
+            self.ids.password.canvas.after.clear()
+            with self.ids.username.canvas.after:
+                Color(22/255,57/255,109/255,1)
+                Rectangle(pos=self.ids.username.pos, size=(self.ids.username.width, 1))
+            with self.ids.password.canvas.after:
+                Color(22/255,57/255,109/255,1)
+                Rectangle(pos=self.ids.password.pos, size=(self.ids.password.width, 1))
+        else:
+            self.ids.username.canvas.after.clear()
+            self.ids.password.canvas.after.clear()
+            with self.ids.username.canvas.after:
+                Color(1,0,0,1)
+                Rectangle(pos=self.ids.username.pos, size=(self.ids.username.width, 1))
+            with self.ids.password.canvas.after:
+                Color(1, 0,0,1)
+                Rectangle(pos=self.ids.password.pos, size=(self.ids.password.width, 1))
     def go_to_signup_screen(self):
         self.manager.current = "sign_up_screen"
     def go_to_forgot_password_screen(self):
