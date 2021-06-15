@@ -88,6 +88,8 @@ class ForgotPasswordScreen(Screen):
         if pword1 == pword2:
             if database.update_pwd(pword1, uname):
                 self.manager.current = "password_changed_success"
+    def go_to_login_page(self):
+        self.manager.current = "login_screen"
 
 
 class PasswordChangedSuccess(Screen):
