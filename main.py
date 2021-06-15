@@ -29,7 +29,9 @@ class LoginScreen(Screen):
                 Rectangle(pos=self.ids.username.pos, size=(self.ids.username.width, 1))
             with self.ids.password.canvas.after:
                 Color(22/255,57/255,109/255,1)
-                Rectangle(pos=self.ids.password.pos, size=(self.ids.password.width, 1))
+                Rectangle(pos=self.ids.password.pos, size=(self.ids.password.width, 1))    
+            self.ids.username.text = ''
+            self.ids.password.text = ''     
         else:
             self.ids.username.canvas.after.clear()
             self.ids.password.canvas.after.clear()
@@ -39,6 +41,8 @@ class LoginScreen(Screen):
             with self.ids.password.canvas.after:
                 Color(1, 0,0,1)
                 Rectangle(pos=self.ids.password.pos, size=(self.ids.password.width, 1))
+
+
     def go_to_signup_screen(self):
         self.manager.current = "sign_up_screen"
     def go_to_forgot_password_screen(self):
