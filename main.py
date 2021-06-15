@@ -392,6 +392,8 @@ class SignUpScreen(Screen):
         if pword1 == pword2:
             if database.insert(uname, pword1, email):
                 self.manager.current = 'sign_up_success'
+    def go_to_login_page(self):
+        self.manager.current="login_screen"
 class SignUpSuccess(Screen):
     def switch_to_login_page(self):
         self.manager.current = 'login_screen'

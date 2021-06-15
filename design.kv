@@ -5,6 +5,7 @@
             cols:1
             padding:15,15
             spacing:20,20
+
             Label:
                 text: 'Sign in'
                 font_size: 32
@@ -280,6 +281,13 @@
         cols:1
         padding:15,15
         spacing:20,20
+        Button:
+            text:"Back"
+            on_press: root.go_to_login_page()
+            size_hint:None,None
+            width: 100
+            height:44
+            background_color:22/255,57/255,109/255
         Label:
             text: "Sign up"
             color: 22/255,57/255,109/255
