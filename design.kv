@@ -292,20 +292,76 @@
             text: "Sign up"
             color: 22/255,57/255,109/255
             font_size:32
-        TextInput:
-            id: username
-            hint_text: 'Username'
-        TextInput:
-            id: email
-            hint_text: "Email"
-        TextInput:
-            id: password
-            hint_text: 'Password'
-            password: True
-        TextInput:
-            id: retyped_password
-            hint_text: 'Retype Password'
-            password: True
+        RelativeLayout:
+            TextInput:
+                canvas.after:
+                    Color:
+                        rgba: 22/255,57/255,109/255,1
+                    Rectangle:
+                        pos:self.pos
+                        size:(self.width, 1)
+
+                id: username
+                hint_text: 'Username'
+                size_hint:None, None
+                height:30
+                width:200
+                background_color:0,0,0,0
+                foreground_color:22/255,57/255,109/255,1
+                pos_hint: {'center_x':0.5, 'center_y':0.3}
+        RelativeLayout:
+            TextInput:
+                canvas.after:
+                    Color:
+                        rgba: 22/255,57/255,109/255,1
+                    Rectangle:
+                        pos:self.pos
+                        size:(self.width, 1)
+
+                id: email
+                hint_text: 'Email'
+                size_hint:None, None
+                height:30
+                width:200
+                background_color:0,0,0,0
+                foreground_color:22/255,57/255,109/255,1
+                pos_hint: {'center_x':0.5, 'center_y':0.4}
+        RelativeLayout:
+            TextInput:
+                canvas.after:
+                    Color:
+                        rgba: 22/255,57/255,109/255,1
+                    Rectangle:
+                        pos:self.pos
+                        size:(self.width, 1)
+
+                id: password
+                hint_text: 'Password'
+                size_hint:None, None
+                height:30
+                width:200
+                background_color:0,0,0,0
+                foreground_color:22/255,57/255,109/255,1
+                pos_hint: {'center_x':0.5, 'center_y':0.5}
+                password:True
+        RelativeLayout:
+            TextInput:
+                canvas.after:
+                    Color:
+                        rgba: 22/255,57/255,109/255,1
+                    Rectangle:
+                        pos:self.pos
+                        size:(self.width, 1)
+
+                id: retyped_password
+                password: True
+                hint_text: 'Retype password'
+                size_hint:None, None
+                height:30
+                width:200
+                background_color:0,0,0,0
+                foreground_color:22/255,57/255,109/255,1
+                pos_hint: {'center_x':0.5, 'center_y':0.6}
         RelativeLayout:
             Button:
                 text: "Sign up"
