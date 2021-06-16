@@ -31,7 +31,8 @@ class LoginScreen(Screen):
                 Color(22/255,57/255,109/255,1)
                 Rectangle(pos=self.ids.password.pos, size=(self.ids.password.width, 1))    
             self.ids.username.text = ''
-            self.ids.password.text = ''     
+            self.ids.password.text = '' 
+            self.ids.errormsg.text = ''    
         else:
             self.ids.username.canvas.after.clear()
             self.ids.password.canvas.after.clear()
@@ -41,6 +42,7 @@ class LoginScreen(Screen):
             with self.ids.password.canvas.after:
                 Color(1, 0,0,1)
                 Rectangle(pos=self.ids.password.pos, size=(self.ids.password.width, 1))
+            self.ids.errormsg.text = "[i]Invalid credentials.[/i]"
 
 
     def go_to_signup_screen(self):

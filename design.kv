@@ -44,6 +44,17 @@
                     background_color: 0,0,0,0  
                     foreground_color: 22/255,57/255,109/255,1
             RelativeLayout:
+                Label:
+                    markup: True
+                    id: errormsg
+                    text: ""
+                    color: 1, 0, 0
+                    font_size:12
+                    size_hint:None,None
+                    pos_hint: {'center_x':0.5, 'center_y': 0.55}
+                    
+
+            RelativeLayout:
                 Button:
                     text: "Sign in"
                     on_press: root.do_everything(root.ids.username.text, root.ids.password.text)
