@@ -463,6 +463,12 @@
                 pos_hint:{'center_x':0.5, 'center_y':0.6}
                 password: True
         RelativeLayout:
+            Label:
+                markup:True
+                text:""
+                id: errormsg
+                color: 1,0,0
+        RelativeLayout:
             Button:
                 text: "Submit"
                 on_press: root.change_password(root.ids.username.text, root.ids.password.text, root.ids.retyped_password.text)

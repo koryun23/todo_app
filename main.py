@@ -89,6 +89,10 @@ class ForgotPasswordScreen(Screen):
     def change_password(self, uname, pword1, pword2):
         if pword1 == pword2:
             if database.update_pwd(pword1, uname):
+                self.ids.errormsg.text=""
+                self.ids.username.text=""
+                self.ids.password.text=""
+                self.ids.retyped_password.text=  ""
                 self.manager.current = "password_changed_success"
                 self.ids.password.canvas.after.clear()
                 self.ids.retyped_password.canvas.after.clear()
@@ -99,6 +103,7 @@ class ForgotPasswordScreen(Screen):
                     Color(22/255,57/255,109/255)
                     Rectangle(pos=self.ids.retyped_password.pos, size=(self.ids.retyped_password.width, 1))
                 return True
+        self.ids.errormsg.text = "[i]Password is occupied.[/i]"
         self.ids.password.canvas.after.clear()
         self.ids.retyped_password.canvas.after.clear()
         with self.ids.password.canvas.after:
