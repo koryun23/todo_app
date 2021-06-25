@@ -379,6 +379,12 @@
                 foreground_color:22/255,57/255,109/255,1
                 pos_hint: {'center_x':0.5, 'center_y':0.6}
         RelativeLayout:
+            Label:
+                id:errormsg
+                color: 1,0,0
+                text:""
+                markup:True
+        RelativeLayout:
             Button:
                 text: "Sign up"
                 on_press: root.add_user(root.ids.username.text, root.ids.email.text,root.ids.password.text, root.ids.retyped_password.text)

@@ -20,20 +20,20 @@ class Database:
         usernames =self.username_cur.fetchall()
         for i in usernames:
             if i[0] == username:
-                return False
+                return False, "username"
         self.password_cur.execute("SELECT password FROM users")
         passwords = self.password_cur.fetchall()
         for i in passwords:
             if i[0] == password:
-                return False
+                return False, "password"
         self.email_cur.execute("SELECT email FROM users")
         emails = self.email_cur.fetchall()
         for i in emails:
             if i[0] == email:
-                return False
+                return False, "email"
         self.cur.execute("INSERT INTO users VALUES(NULL, ?, ?, ?) ", (username, password, email))  
         self.conn.commit()
-        return True
+        return True, "signed up"
     def view(self):
         self.cur.execute("SELECT * FROM users")
         rows = self.cur.fetchall()
@@ -64,7 +64,6 @@ class Database:
     def __del__(self):
         self.conn.close()
 
-db = Database()
 class Tasks:
     def __init__(self):
         self.conn = sqlite3.connect('tasks.db')
@@ -107,6 +106,8 @@ class Tasks:
         self.conn.commit()
     def __del__(self):
         self.conn.close()
+
+db = Database()
 
 # tasks = Tasks()
 # tasks.connect()
