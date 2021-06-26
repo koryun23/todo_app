@@ -42,7 +42,7 @@ class LoginScreen(Screen):
             with self.ids.password.canvas.after:
                 Color(1, 0,0,1)
                 Rectangle(pos=self.ids.password.pos, size=(self.ids.password.width, 1))
-            self.ids.errormsg.text = "[i]Invalid credentials.[/i]"
+            self.ids.errormsg.text = "[i]One of the credentials is invalid.[/i]"
 
 
     def go_to_signup_screen(self):
@@ -423,6 +423,7 @@ class SignUpScreen(Screen):
                 self.ids.email.canvas.after.clear()
                 self.ids.password.canvas.after.clear()
                 self.ids.retyped_password.canvas.after.clear()
+                self.ids.errormsg.text = ""
                 with self.ids.username.canvas.after:
                     Color(22/255,57/255,109/255,1)
                     Rectangle(pos=self.ids.username.pos, size=(self.ids.username.width, 1))
@@ -440,9 +441,80 @@ class SignUpScreen(Screen):
                 self.ids.retyped_password.text=""
                 self.ids.email.text = ""
                 self.ids.errormsg = ""
+            else:
+                if signup[1] == "username":
+                    self.ids.username.canvas.after.clear()
+                    self.ids.email.canvas.after.clear()
+                    self.ids.password.canvas.after.clear()
+                    self.ids.retyped_password.canvas.after.clear()
+                    with self.ids.username.canvas.after:
+                        Color(1, 0,0,1)
+                        Rectangle(pos=self.ids.username.pos, size=(self.ids.username.width, 1))
+                    self.ids.errormsg.text = "[i]Username is occupied.[/i]"
+                    with self.ids.password.canvas.after:
+                        Color(22/255,57/255,109/255,1)
+                        Rectangle(pos=self.ids.password.pos, size=(self.ids.password.width,1))
+                    with self.ids.retyped_password.canvas.after:
+                        Color(22/255,57/255,109/255,1)
+                        Rectangle(pos = self.ids.retyped_password.pos, size=(self.ids.retyped_password.width, 1))
+                    with self.ids.email.canvas.after:
+                        Color(22/255,57/255,109/255,1)
+                        Rectangle(pos = self.ids.email.pos, size=(self.ids.password.width, 1))
+                elif signup[1] == "password":
+                    self.ids.username.canvas.after.clear()
+                    self.ids.email.canvas.after.clear()
+                    self.ids.password.canvas.after.clear()
+                    self.ids.retyped_password.canvas.after.clear()
+                    with self.ids.password.canvas.after:
+                        Color(1, 0,0,1)
+                        Rectangle(pos=self.ids.password.pos, size=(self.ids.username.width, 1))
+                    with self.ids.username.canvas.after:
+                        Color(22/255,57/255,109/255,1)
+                        Rectangle(pos=self.ids.username.pos, size=(self.ids.username.width, 1))
+                    with self.ids.retyped_password.canvas.after:
+                        Color(22/255,57/255,109/255,1)
+                        Rectangle(pos = self.ids.retyped_password.pos, size=(self.ids.retyped_password.width,1))
+                    with self.ids.email.canvas.after:
+                        Color(22/255,57/255,109/255,1)
+                        Rectangle(pos = self.ids.email.pos, size=(self.ids.email.width, 1))
+                    self.ids.errormsg.text = "[i]Password is occupied.[/i]"
+                elif signup[1] == "email":
+                    self.ids.username.canvas.after.clear()
+                    self.ids.email.canvas.after.clear()
+                    self.ids.password.canvas.after.clear()
+                    self.ids.retyped_password.canvas.after.clear()
+                    with self.ids.email.canvas.after:
+                        Color(1,0,0,1)
+                        Rectangle(pos = self.ids.email.pos, size=(self.ids.username.width, 1))
+                    with self.ids.username.canvas.after:
+                        Color(22/255,57/255,109/255,1)
+                        Rectangle(pos = self.ids.username.pos, size=(self.ids.email.width, 1))
+                    with self.ids.password.canvas.after:
+                        Color(22/255,57/255,109/255,1)
+                        Rectangle(pos = self.ids.password.pos, size=(self.ids.password.width, 1))
+                    with self.ids.retyped_password.canvas.after:
+                        Color(22/255,57/255,109/255,1)
+                        Rectangle(pos = self.ids.retyped_password.pos, size=(self.ids.retyped_password.width, 1))
+                    self.ids.errormsg.text = "[i]Email is occupied.[/i]"
+        else:
+            self.ids.errormsg.text="[i]Passwords do not match.[/i]"
+            self.ids.username.canvas.after.clear()
+            self.ids.email.canvas.after.clear()
+            self.ids.password.canvas.after.clear()
+            self.ids.retyped_password.canvas.after.clear()
+            with self.ids.email.canvas.after:
+                Color(22/255,57/255,109/255,1)
+                Rectangle(pos = self.ids.email.pos, size=(self.ids.username.width, 1))
+            with self.ids.username.canvas.after:
+                Color(22/255,57/255,109/255,1)
+                Rectangle(pos = self.ids.username.pos, size=(self.ids.email.width, 1))
+            with self.ids.password.canvas.after:
+                Color(1,0,0,1)
+                Rectangle(pos = self.ids.password.pos, size=(self.ids.password.width, 1))
+            with self.ids.retyped_password.canvas.after:
+                Color(1,0,0,1)
+                Rectangle(pos = self.ids.retyped_password.pos, size=(self.ids.retyped_password.width, 1))
 
-        
-        
     def go_to_login_page(self):
         self.manager.current="login_screen"
 class SignUpSuccess(Screen):
