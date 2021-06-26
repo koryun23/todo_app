@@ -54,7 +54,6 @@ class LoginScreen(Screen):
     
     def do_everything(self, uname, pwd):
         self.login(uname, pwd)
-
         self.show_all_tasks()
     def show_all_tasks(self):
         tasks = Tasks()
@@ -63,17 +62,23 @@ class LoginScreen(Screen):
         month = today.strftime("%d/%m/%Y")[3:5]
         year = today.strftime("%d/%m/%Y")[6:]
         self.manager.get_screen("login_success").ids.tasks.clear_widgets()
-        all_tasks = tasks.todays_tasks(database.logged_in_id, day, month, year)  
+        
+        all_tasks = tasks.todays_tasks(database.logged_in_id, day, month, year)
+        self.manager.get_screen("login_success").ids.tasks.height = 125*len(all_tasks) 
+        print(len(all_tasks)) 
         for task in all_tasks:
-            layout = GridLayout(cols=2)
-            task_name = Label(text=task[2])
-            task_time = Label(text=task[3]+":"+task[4])
+            layout = GridLayout(cols=2, row_force_default=True, row_default_height=60, padding=(0,20))
+            task_name = Label(text=task[2], padding=(0,10))
+            task_time = Label(text=task[3]+":"+task[4], padding=(0,10))
             delete_task = Button(text="Delete", on_press = partial(self.remove,layout, task))
             layout.add_widget(task_name)
             layout.add_widget(delete_task)
-            
             layout.add_widget(task_time)
+            layout.add_widget(GridLayout(cols=1))
             self.manager.get_screen("login_success").ids.tasks.add_widget(layout)
+            self.manager.get_screen("login_success").ids.tasks.add_widget(GridLayout(cols=1, row_force_default=True, row_default_height=25))
+
+
         
     def remove(self, layout,task, delete_task):
         self.manager.get_screen("login_success").ids.tasks.remove_widget(layout)
