@@ -60,6 +60,20 @@ class Database:
                 self.logged_in_id = list(row)[0]
                 return True
         return False
+    def username_exists(self, username):
+        self.cur.execute("SELECT * FROM users")
+        rows = self.cur.fetchall()
+        for row in rows:
+            if list(row)[1] == username:
+                return True
+        return False
+    def pwd_exists(self, password):
+        self.cur.execute("SELECT * FROM users")
+        rows = self.cur.fetchall()
+        for row in rows:
+            if list(row)[2] == password:
+                return True
+        return False
 
     def __del__(self):
         self.conn.close()

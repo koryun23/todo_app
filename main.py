@@ -96,22 +96,61 @@ class ForgotPasswordScreen(Screen):
                 self.manager.current = "password_changed_success"
                 self.ids.password.canvas.after.clear()
                 self.ids.retyped_password.canvas.after.clear()
+                self.ids.username.canvas.after.clear()
+                with self.ids.username.canvas.after:
+                    Color(22/255,57/255,109/255, 1)
+                    Rectangle(pos = self.ids.username.pos, size=(self.ids.username.width,1))
                 with self.ids.password.canvas.after:
-                    Color(22/255,57/255,109/255)
-                    Rectangle(pos = self.ids.username.pos, size=(self.ids.username.width, 1))
+                    Color(22/255,57/255,109/255, 1)
+                    Rectangle(pos = self.ids.password.pos, size=(self.ids.username.width, 1))
                 with self.ids.retyped_password.canvas.after:
-                    Color(22/255,57/255,109/255)
+                    Color(22/255,57/255,109/255, 1)
                     Rectangle(pos=self.ids.retyped_password.pos, size=(self.ids.retyped_password.width, 1))
                 return True
-        self.ids.errormsg.text = "[i]Password is occupied.[/i]"
-        self.ids.password.canvas.after.clear()
-        self.ids.retyped_password.canvas.after.clear()
-        with self.ids.password.canvas.after:
-            Color(1, 0,0,1)
-            Rectangle(pos=self.ids.password.pos, size=(self.ids.password.width, 1))
-        with self.ids.retyped_password.canvas.after:
-            Color(1, 0, 0,1)
-            Rectangle(pos=self.ids.retyped_password.pos, size=(self.ids.retyped_password.width, 1))
+            else:
+                if database.username_exists(self.ids.username.text) == False:
+                    self.ids.username.canvas.after.clear()
+                    self.ids.password.canvas.after.clear()
+                    self.ids.retyped_password.canvas.after.clear()
+                    with self.ids.username.canvas.after:
+                        Color(1,0,0,1)
+                        Rectangle(pos = self.ids.username.pos, size=(self.ids.username.width,1))
+                    with self.ids.password.canvas.after:
+                        Color(22/255,57/255,109/255, 1)
+                        Rectangle(pos = self.ids.password.pos, size=(self.ids.username.width, 1))
+                    with self.ids.retyped_password.canvas.after:
+                        Color(22/255,57/255,109/255, 1)
+                        Rectangle(pos=self.ids.retyped_password.pos, size=(self.ids.retyped_password.width, 1))
+                    self.ids.errormsg.text="[i]Invalid username.[/i]"
+                else:
+                    self.ids.errormsg.text = "[i]Password is occupied.[/i]"
+                    self.ids.password.canvas.after.clear()
+                    self.ids.retyped_password.canvas.after.clear()
+                    self.ids.username.canvas.after.clear()
+                    with self.ids.username.canvas.after:
+                        Color(22/255,57/255,109/255, 1)
+                        Rectangle(pos = self.ids.username.pos, size=(self.ids.username.width, 1))
+                    with self.ids.password.canvas.after:
+                        Color(1, 0,0,1)
+                        Rectangle(pos=self.ids.password.pos, size=(self.ids.password.width, 1))
+                    with self.ids.retyped_password.canvas.after:
+                        Color(1, 0, 0,1)
+                        Rectangle(pos=self.ids.retyped_password.pos, size=(self.ids.retyped_password.width, 1))
+        else:
+            self.ids.password.canvas.after.clear()
+            self.ids.retyped_password.canvas.after.clear()
+            self.ids.username.canvas.after.clear()
+            with self.ids.username.canvas.after:
+                Color(22/255,57/255,109/255, 1)
+                Rectangle(pos=self.ids.username.pos, size=(self.ids.username.width, 1))
+            with self.ids.password.canvas.after:
+                Color(1,0,0,1)
+                Rectangle(pos=self.ids.password.pos, size=(self.ids.password.width, 1))
+            with self.ids.retyped_password.canvas.after:
+                Color(1,0,0,1)
+                Rectangle(pos=self.ids.retyped_password.pos, size=(self.ids.retyped_password.width, 1))
+            self.ids.errormsg.text="[i]Passwords do not match.[/i]"
+
     def go_to_login_page(self):
         self.manager.current = "login_screen"
 
